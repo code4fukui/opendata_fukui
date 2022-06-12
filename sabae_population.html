@@ -9,6 +9,7 @@ App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_popula
 import { ChartLine } from "https://js.sabae.cc/Chart.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 
+document.title = document.body.querySelector("h1").textContent;
 const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
 const data = CSV.toJSON(await CSV.fetch(url));
 const chart = new ChartLine(data.map(d => {
