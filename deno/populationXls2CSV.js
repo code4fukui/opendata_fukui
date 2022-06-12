@@ -1,5 +1,6 @@
 //import * as SheetJS from "https://code4fukui.github.io/sheetjs/xlsx.mjs";
-import * as SheetJS from "./xlsx.mjs";
+//import * as SheetJS from "./xlsx.mjs";
+import { SheetJS } from "https://js.sabae.cc/SheetJS.js";
 import { dir2array } from "https://js.sabae.cc/dir2array.js";
 import { Day } from "https://js.sabae.cc/DateTime.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
