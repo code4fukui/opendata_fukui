@@ -25,9 +25,13 @@ for (const file of files) {
     const pop = sh.M29.v;
     //console.log(name, date, pop);
     const date2 = new Day(date).toString();
-    console.log(date2, pop);
+    //console.log(date2, pop);
+    if (data.find(d => d.date == date2)) {
+      continue;
+    }
     data.push({ date: date2, lgcode: "182079", population: pop });
   }
 }
 data.sort((a, b) => a.date.localeCompare(b.date));
+console.log(data);
 await Deno.writeTextFile("../sabae_population.csv", CSV.stringify(data));
