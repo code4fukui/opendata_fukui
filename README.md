@@ -11,4 +11,5 @@
 ## RENEW Pay
 
 - [RENEW Pay 決済オープンデータ](renewpay_payment_2022.csv)  (出展: [株式会社ふくいのデジタル](https://www.fukui-digital.co.jp/)＆[ふくいドットコム 福井県観光データ分析システム FTAS](https://www.fuku-e.com/feature/detail_266.html))
+- [RENEW Pay 決済オープンデータ(福井県観光アンケートオープンデータ会員ID突合データ)](renewpay_payment_linked_2022.csv)  (出展: [株式会社ふくいのデジタル](https://www.fukui-digital.co.jp/)＆[ふくいドットコム 福井県観光データ分析システム FTAS](https://www.fuku-e.com/feature/detail_266.html))
 - [RENEW Pay 店舗オープンデータ](renewpay_store_2022.csv) (出展: [株式会社ふくいのデジタル](https://www.fukui-digital.co.jp/)＆[ふくいドットコム 福井県観光データ分析システム FTAS](https://www.fuku-e.com/feature/detail_266.html))
