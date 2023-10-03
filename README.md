@@ -15,4 +15,8 @@
 
 ## 敦賀市の人口
 
-- [敦賀市の人口](tsuruga_population_statistics.csv) 出典: [敦賀市オープンデータ　敦賀市-Tsuruga City-](https://www.city.tsuruga.lg.jp/about_city/tokei_nenpo/opendata.html)
+- [敦賀市の人口](tsuruga_population_statistics.csv) [アプリ](https://code4fukui.github.io/opendata_fukui/tsuruga_population.html) 出典: [敦賀市オープンデータ　敦賀市-Tsuruga City-](https://www.city.tsuruga.lg.jp/about_city/tokei_nenpo/opendata.html)
+
+## 鯖江市と敦賀市の人口
+
+- [アプリ](https://code4fukui.github.io/opendata_fukui/population.html)

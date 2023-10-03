@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+
+<h1>敦賀市の人口推移</h1>
+<div id=main></div>
+DATA: <a href=https://www.city.tsuruga.lg.jp/about_city/tokei_nenpo/opendata.html>人口統計男女年齢別 – 敦賀市オープンデータ　敦賀市-Tsuruga City-</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/tsuruga_population.csv>CSV</a> by Code for FUKUI<br>
+App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/tsuruga_population.html>src on GitHub</a><br>
+
+<script type="module">
+import { ChartLine } from "https://js.sabae.cc/Chart.js";
+import { CSV } from "https://js.sabae.cc/CSV.js";
+
+//const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
+const url = "./tsuruga_population.csv";
+const data = CSV.toJSON(await CSV.fetch(url));
+const chart = new ChartLine(data.map(d => {
+  return { name: d.date, value: d.population };
+}), { useMinValue: true });
+main.appendChild(chart);
+
+document.title = document.body.querySelector("h1").textContent;
+</script>
+
+<style>
+body {
+  margin: 0;
+  text-align: center;
+}
+chart-line {
+  width: 95vw;
+  height: 80vh;
+}
+</style>

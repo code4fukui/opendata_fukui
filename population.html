@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+
+<h1>鯖江市と敦賀市の人口推移</h1>
+<div id=main></div>
+<a href=sabae_population.html>鯖江市の人口</a>、<a href=tsuruga_population.html>敦賀市の人口</a><br>
+<br>
+DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
+DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
+App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_population.html>src on GitHub</a><br>
+
+<script type="module">
+//import { ChartLine } from "https://js.sabae.cc/Chart.js";
+import { ChartLine } from "https://code4fukui.github.io/chart-line/chart-line.js";
+//import { ChartLine } from "./chart-line.js";
+import { CSV } from "https://js.sabae.cc/CSV.js";
+
+const urls = [
+  "./tsuruga_population.csv",
+  "./sabae_population.csv",
+];
+const data1 = await CSV.fetchJSON(urls[0]);
+const data2 = await CSV.fetchJSON(urls[1]);
+const data1a = [];
+const data2a = [];
+
+console.log(data1, data2);
+for (const d of data2) {
+  if (data1.find(d2 => d2.date == d.date)) {
+    data2a.push(d);
+  }
+}
+for (const d of data1) {
+  if (data2.find(d1 => d1.date == d.date)) {
+    data1a.push(d);
+  }
+}
+const map = (d) => ({ name: d.date, value: parseInt(d.population) });
+//const list = [data1a.map(map), data2a.map(map)];
+const list = [data2a.map(map), data1a.map(map)];
+console.log(list);
+const chart = new ChartLine(list, { minValue: 63000 });
+main.appendChild(chart);
+
+document.title = document.body.querySelector("h1").textContent;
+
+</script>
+
+<style>
+body {
+  margin: 0;
+  text-align: center;
+}
+chart-line {
+  width: 95vw;
+  height: 80vh;
+}
+</style>
