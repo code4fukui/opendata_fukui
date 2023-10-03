@@ -19,6 +19,7 @@ jobs:
           cd deno
           deno run -A populationDownload.js
           deno run -A populationXls2CSV.js
+          deno run -A populationDownloadTsuruga.js
       - name: commit and push
         run: |
           git config --global user.email "workflow@example.com"
