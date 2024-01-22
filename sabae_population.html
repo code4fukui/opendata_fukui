@@ -1,22 +1,23 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-
+<title>鯖江市の人口推移</title>
+</head><body>
 <h1>鯖江市の人口推移</h1>
 <div id=main></div>
 DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
 App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_population.html>src on GitHub</a><br>
 
 <script type="module">
-import { ChartLine } from "https://js.sabae.cc/Chart.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
+import { DateTime } from "https://js.sabae.cc/DateTime.js";
+import { showLineChart } from "./showLineChart.js";
 
 const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
 const data = CSV.toJSON(await CSV.fetch(url));
-const chart = new ChartLine(data.map(d => {
-  return { name: d.date, value: d.population };
-}), { useMinValue: true });
-main.appendChild(chart);
-
-document.title = document.body.querySelector("h1").textContent;
+const data2 = data.map(d => {
+  return [new DateTime(d.date).getTime(), d.population];
+});
+const series = [{ name: "鯖江市人口", data: data2 }];
+showLineChart(main, series);
 </script>
 
 <style>
