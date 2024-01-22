@@ -2,7 +2,10 @@
 <title>鯖江市の人口推移</title>
 </head><body>
 <h1>鯖江市の人口推移</h1>
-<div id=main></div>
+<div id=main>
+<div id=chart1></div>
+<div id=chart2></div>
+</div>
 DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
 App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_population.html>src on GitHub</a><br>
 
@@ -11,13 +14,21 @@ import { CSV } from "https://js.sabae.cc/CSV.js";
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { showLineChart } from "./showLineChart.js";
 
-const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
-const data = CSV.toJSON(await CSV.fetch(url));
-const data2 = data.map(d => {
-  return [new DateTime(d.date).getTime(), d.population];
-});
-const series = [{ name: "鯖江市人口", data: data2 }];
-showLineChart(main, series);
+//const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
+const url = "./sabae_population.csv";
+const list = CSV.toJSON(await CSV.fetch(url));
+
+const names = ["population", "鯖江", "新横江", "神明", "中河", "片上", "立待", "吉川", "豊", "北中山", "河和田"];
+const getSeries = (names) => {
+  const series = names.map(name => {
+    const data = list.map(d => [new DateTime(d.date).getTime(), d[name]]);
+    const name2 = name == "population" ? "鯖江市合計" : name + "地区";
+    return { name: name2, data };
+  });
+  return series;
+};
+showLineChart(chart1, getSeries(["population"]));
+showLineChart(chart2, getSeries(names));
 </script>
 
 <style>
@@ -28,5 +39,8 @@ body {
 chart-line {
   width: 95vw;
   height: 80vh;
+}
+a {
+  color: gray !important;
 }
 </style>
