@@ -27,8 +27,8 @@ const getSeries = (names) => {
   });
   return series;
 };
-showLineChart(chart1, getSeries(["population"]));
-showLineChart(chart2, getSeries(names));
+showLineChart(chart1, { title: "鯖江市人口", series: getSeries(["population"]) });
+showLineChart(chart2, { title: "鯖江市地区別人口", series: getSeries(names) });
 </script>
 
 <style>

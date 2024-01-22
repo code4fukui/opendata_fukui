@@ -14,7 +14,10 @@ cosnt series = [
 ];
 */
 
-export const showLineChart = (divlinechart, series, height = 350) => {
+export const showLineChart = (divlinechart, opt) => {
+  const title = opt.title;
+  const series = opt.series;
+  const height = opt.height || 350;
   const options = {
     series,
     //annotations,
@@ -38,12 +41,10 @@ export const showLineChart = (divlinechart, series, height = 350) => {
       width: 2,
       curve: "straight",
     },
-    /*
     title: {
       text: title || "",
       align: "center",
     },
-    */
     /*
     grid: {
       borderColor: '#e7e7e7',
