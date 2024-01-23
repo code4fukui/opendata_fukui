@@ -15,7 +15,7 @@ const areas = [
   { area: "吉川", pos: "M13" },
   { area: "豊", pos: "M17" },
   { area: "北中山", pos: "M21" },
-  { area: "河和田", pos: "F25" },
+  { area: "河和田", pos: "M25" },
 ];
 
 const path = "../org/sabae-jinko.files/";
