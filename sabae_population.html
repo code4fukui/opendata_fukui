@@ -1,10 +1,11 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>鯖江市の人口推移</title>
+<title>鯖江市人口ダッシュボード</title>
 </head><body>
-<h1>鯖江市の人口推移</h1>
+<h1>鯖江市人口ダッシュボード</h1>
 <div id=main>
 <div id=chart1></div>
 <div id=chart2></div>
+<div id=chart3></div>
 </div>
 DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
 App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_population.html>src on GitHub</a><br>
@@ -13,12 +14,14 @@ App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_popula
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { showLineChart } from "./showLineChart.js";
+import { Num } from "https://js.sabae.cc/Num.js";
 
 //const url = "https://code4fukui.github.io/opendata_fukui/sabae_population.csv";
 const url = "./sabae_population.csv";
 const list = CSV.toJSON(await CSV.fetch(url));
 
-const names = ["population", "鯖江", "新横江", "神明", "中河", "片上", "立待", "吉川", "豊", "北中山", "河和田"];
+//const names = ["population", "鯖江", "新横江", "神明", "中河", "片上", "立待", "吉川", "豊", "北中山", "河和田"];
+const names = ["鯖江", "新横江", "神明", "中河", "片上", "立待", "吉川", "豊", "北中山", "河和田"];
 const getSeries = (names) => {
   const series = names.map(name => {
     const data = list.map(d => [new DateTime(d.date).getTime(), d[name]]);
@@ -27,8 +30,21 @@ const getSeries = (names) => {
   });
   return series;
 };
-showLineChart(chart1, { title: "鯖江市人口", series: getSeries(["population"]) });
-showLineChart(chart2, { title: "鯖江市地区別人口", series: getSeries(names) });
+const calcRatio = (series) => {
+  for (const s of series) {
+    const d0 = s.data[0][1];
+    for (let i = 0; i < s.data.length; i++) {
+      s.data[i][1] /= d0;
+    }
+  }
+  return series;
+};
+const formatterP = v => Num.addComma(v) + "人";
+const formatter = v => ((v - 1) * 100).toFixed(2) + "%";
+const yaxis = { /*stepSize: 0.2, */min: 0.8, max: 1.05, labels: { formatter } };
+showLineChart(chart1, { title: "鯖江市人口", series: getSeries(["population"]), formatter: formatterP });
+showLineChart(chart2, { title: "鯖江市地区別人口増減 2015/8基準", series: calcRatio(getSeries(["population", ...names])), yaxis });
+showLineChart(chart3, { title: "鯖江市地区別人口", series: getSeries(names), formatter: formatterP });
 </script>
 
 <style>

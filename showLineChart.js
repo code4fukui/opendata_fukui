@@ -18,9 +18,13 @@ export const showLineChart = (divlinechart, opt) => {
   const title = opt.title;
   const series = opt.series;
   const height = opt.height || 350;
+  const annotations = opt.annotations;
+  const yaxis = opt.yaxis;
+  const formatter = opt.formatter;
   const options = {
     series,
-    //annotations,
+    annotations,
+    yaxis,
     chart: {
       height,
       type: "line",
@@ -102,16 +106,10 @@ export const showLineChart = (divlinechart, opt) => {
           return new DateTime(val).day.toString();
         },
       },
-    },
-    /*
-    tooltip: {
       y: {
-        formatter: (v) => {
-          return Num.addComma(v) + "人";
-        },
+        formatter,
       }
     },
-    */
   };
 
   const chart = new ApexCharts(divlinechart, options);
