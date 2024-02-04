@@ -6,6 +6,7 @@
 <div id=chart1></div>
 <div id=chart2></div>
 <div id=chart3></div>
+<div id=chart4></div>
 </div>
 DATA: <a href=https://www.city.sabae.fukui.jp/about_city/tokeijoho/sabae-jinko.html>鯖江市の現在の人口 – めがねのまちさばえ 鯖江市</a> → <a href=https://github.com/code4fukui/opendata_fukui/>GitHub</a> → <a href=https://code4fukui.github.io/opendata_fukui/sabae_population.csv>CSV</a> by Code for FUKUI<br>
 App: <a href=https://github.com/code4fukui/opendata_fukui/blob/main/sabae_population.html>src on GitHub</a><br>
@@ -39,12 +40,22 @@ const calcRatio = (series) => {
   }
   return series;
 };
+const calcDiff = (series) => {
+  for (const s of series) {
+    const d0 = s.data[0][1];
+    for (let i = 0; i < s.data.length; i++) {
+      s.data[i][1] -= d0;
+    }
+  }
+  return series;
+};
 const formatterP = v => Num.addComma(v) + "人";
 const formatter = v => ((v - 1) * 100).toFixed(2) + "%";
 const yaxis = { /*stepSize: 0.2, */min: 0.8, max: 1.05, labels: { formatter } };
 showLineChart(chart1, { title: "鯖江市人口", series: getSeries(["population"]), formatter: formatterP });
-showLineChart(chart2, { title: "鯖江市地区別人口増減 2015/8基準", series: calcRatio(getSeries(["population", ...names])), yaxis });
-showLineChart(chart3, { title: "鯖江市地区別人口", series: getSeries(names), formatter: formatterP });
+showLineChart(chart2, { title: "鯖江市地区別人口増減数 2015/8基準", series: calcDiff(getSeries(["population", ...names])) });
+showLineChart(chart3, { title: "鯖江市地区別人口増減率 2015/8基準", series: calcRatio(getSeries(["population", ...names])), yaxis });
+showLineChart(chart4, { title: "鯖江市地区別人口", series: getSeries(names), formatter: formatterP });
 </script>
 
 <style>
